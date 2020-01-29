@@ -1,0 +1,2 @@
+# BreakCheck
+Bill Splitting app
