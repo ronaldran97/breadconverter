@@ -1,6 +1,7 @@
+import 'package:break_check/add_item_numpad.dart';
 import 'package:break_check/second_page.dart';
 import 'package:flutter/material.dart';
-import 'lib/second_page.dart' as route;
+//import 'lib/second_page.dart' as route;
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -124,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => MySecondPage(title: 'Results',)),
+            MaterialPageRoute(builder: (context) => MyNumPadPage(title: 'Add New Item',)),
       );
         },
         tooltip: 'Calculate',
