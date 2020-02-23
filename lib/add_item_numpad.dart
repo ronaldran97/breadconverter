@@ -29,6 +29,32 @@ class _MyNumPadPageState extends State<MyNumPadPage> {
 
   String output = "0";
 
+  String _output = "0";
+  double num1 = 0.0;
+  double num2 = 0.0;
+  buttonPressed(String buttonText) {
+
+
+    if (buttonText == "CLEAR") {
+      _output = "0";
+    } else if (buttonText == ".") {
+      if (_output.contains(".")) {
+        print("Already has a decimal");
+        return;
+      } else {
+        _output = _output + buttonText;
+      }
+    } else if (buttonText == "="){
+
+    }
+    print(_output);
+    setState(() {
+      output = double.parse(_output).toStringAsFixed(2);
+    });
+  }
+
+
+
   Widget buildButton(String buttonText) {
     return new Expanded(
       child: new OutlineButton(
@@ -37,12 +63,12 @@ class _MyNumPadPageState extends State<MyNumPadPage> {
         style: TextStyle(
           fontSize: 20.0,
           fontWeight: FontWeight.bold,
-
         ),
         ),
-
         textColor: Colors.black54,
-        onPressed: () => {}, //does nothing
+        onPressed: () => {
+          buttonPressed(buttonText)
+        }, //does nothing
       ),
     );
   }
@@ -97,10 +123,10 @@ class _MyNumPadPageState extends State<MyNumPadPage> {
                   new Row(children: [
                     buildButton("."),
                     buildButton("0"),
-                    buildButton("del"),
+                    buildButton("CLEAR"),
                   ]),
                   new Row(children: <Widget>[
-                    buildButton("Submit")
+                    buildButton("SUBMIT")
                   ],)
 
                 ],

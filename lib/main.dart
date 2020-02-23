@@ -1,6 +1,7 @@
 import 'package:break_check/add_item_numpad.dart';
 import 'package:break_check/second_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 //import 'lib/second_page.dart' as route;
 void main() => runApp(MyApp());
 
@@ -106,16 +107,16 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               '$_grandTotal $_counter',
               style: Theme.of(context).textTheme.display1,
+
             ),
-//            DropdownMenuItem<String>(
-//              items: <String>['A', 'B', 'C', 'D'].map((String value) {
-//                return new DropdownMenuItem<String>(
-//                  value: value,
-//                  child: new Text(value),
-//                );
-//              }).toList(),
-//              onChanged: (_) {},
-//            )
+
+            new TextField(
+              decoration: new InputDecoration(labelText: "Enter your price"),
+              keyboardType: TextInputType.number,
+              inputFormatters: <TextInputFormatter>[
+                WhitelistingTextInputFormatter.digitsOnly
+              ],
+            )
 
           ],
 
