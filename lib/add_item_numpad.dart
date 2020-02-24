@@ -34,6 +34,8 @@ class _MyNumPadPageState extends State<MyNumPadPage> {
   double num2 = 0.0;
   buttonPressed(String buttonText) {
 
+    _output = buttonText;
+
 
     if (buttonText == "CLEAR") {
       _output = "0";
