@@ -2,6 +2,8 @@ import 'package:break_check/add_item_numpad.dart';
 import 'package:break_check/second_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'package:moneytextformfield/moneytextformfield.dart';
 //import 'lib/second_page.dart' as route;
 void main() => runApp(MyApp());
 
