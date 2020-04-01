@@ -54,6 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   int _counter = 0;
   String _grandTotal = '\$';
+  TextEditingController myController = TextEditingController(); //for money format
 
   void _incrementCounter() {
     setState(() {
@@ -112,12 +113,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
             ),
 
-            new TextField(
-              decoration: new InputDecoration(labelText: "Enter your price"),
-              keyboardType: TextInputType.number,
-              inputFormatters: <TextInputFormatter>[
-                WhitelistingTextInputFormatter.digitsOnly
-              ],
+            MoneyTextFormField(
+                settings: MoneyTextFormFieldSettings(
+                    controller: myController
+                )
             )
 
           ],

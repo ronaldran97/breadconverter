@@ -27,114 +27,36 @@ class MyNumPadPage extends StatefulWidget {
 
 class _MyNumPadPageState extends State<MyNumPadPage> {
 
-  String output = "0";
+  TextEditingController myController = TextEditingController();
 
-  String _output = "0";
-  double num1 = 0.0;
-  double num2 = 0.0;
-  buttonPressed(String buttonText) {
-
-    _output = buttonText;
-
-
-    if (buttonText == "CLEAR") {
-      _output = "0";
-    } else if (buttonText == ".") {
-      if (_output.contains(".")) {
-        print("Already has a decimal");
-        return;
-      } else {
-        _output = _output;
-      }
-    } else if (buttonText == "="){
-
-    }
-    print(_output);
-    setState(() {
-      output = double.parse(_output).toStringAsFixed(2);
-    });
+  @override
+  void initState() {
+    super.initState();
   }
 
-
-
-  Widget buildButton(String buttonText) {
-    return new Expanded(
-      child: new OutlineButton(
-        padding: new EdgeInsets.all(24.0),
-        child: new Text(buttonText,
-        style: TextStyle(
-          fontSize: 20.0,
-          fontWeight: FontWeight.bold,
-        ),
-        ),
-        textColor: Colors.black54,
-        onPressed: () => {
-          buttonPressed(buttonText)
-        }, //does nothing
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
+    // TODO: implement build
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: new Container(
-          child: new Column(
-            children: <Widget>[
-              new Container(
-                  alignment: Alignment.centerRight,
-                  padding: new EdgeInsets.symmetric(
-                      vertical: 24.0,
-                      horizontal: 12.0
-                  ),
-                  child: new Text(output, style: new TextStyle(
-                    fontSize: 48.0,
-                    fontWeight: FontWeight.bold,
-
-                  ),
-                  )
-
-              ),
-
-
-              new Expanded(
-                child: new Divider(),
-              ),
-
-
-              new Column(
-                children: <Widget>[
-                  new Row(children: [
-                    buildButton("1"),
-                    buildButton("2"),
-                    buildButton("3"),
-                  ]),
-                  new Row(children: [
-                    buildButton("4"),
-                    buildButton("5"),
-                    buildButton("6"),
-                  ]),
-                  new Row(children: [
-                    buildButton("7"),
-                    buildButton("8"),
-                    buildButton("9"),
-                  ]),
-                  new Row(children: [
-                    buildButton("."),
-                    buildButton("0"),
-                    buildButton("CLEAR"),
-                  ]),
-                  new Row(children: <Widget>[
-                    buildButton("SUBMIT")
-                  ],)
-
-                ],
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            MoneyTextFormField(
+              settings: MoneyTextFormFieldSettings(
+                controller: myController
               )
-            ],
-          ),
-        ));
+            )
+          ],
+        )
+      ),
+    );
+    return null;
   }
+
+
 }
