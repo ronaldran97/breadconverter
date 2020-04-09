@@ -70,7 +70,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_money_formatter:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_money_formatter
       url: "https://pub.dartlang.org"

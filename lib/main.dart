@@ -2,6 +2,7 @@ import 'package:break_check/add_item_numpad.dart';
 import 'package:break_check/second_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 
 import 'package:moneytextformfield/moneytextformfield.dart';
 
@@ -52,18 +53,22 @@ class Language {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+  String defaultValue = '0';
+
   String dollarSign = '\$';
-  TextEditingController moneyController = TextEditingController(); //for money format
+  TextEditingController moneyController =
+      TextEditingController(); //for money format
   List<Language> _languages = Language.getMoneyLanguage();
   List<DropdownMenuItem<Language>> _dropdownMenuItems;
   Language _selectedLang;
 
   @override
   void initState() {
+    super.initState();
     _dropdownMenuItems = buildDropdownMenuItems(_languages);
     _selectedLang = _dropdownMenuItems[0].value;
 
-    super.initState();
+//    super.initState();
   }
 
   List<DropdownMenuItem<Language>> buildDropdownMenuItems(List languages) {
@@ -78,25 +83,33 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   onChangeDropdownItem(Language selectedLanguage) {
-    setState(() {
-      _selectedLang = selectedLanguage;
-      print(selectedLanguage.name);
-      if (selectedLanguage.name == 'JPY (¥)') {
-        dollarSign = '¥';
-      } else if (selectedLanguage.name == 'EUR (€)') {
-        dollarSign = '€';
-      } else if (selectedLanguage.name == 'GBP (£)') {
-        dollarSign = '£';
-      } else if (selectedLanguage.name == 'AUD (\$)') {
-        dollarSign = '\$';
-      } else if (selectedLanguage.name == 'CAD (\$)') {
-        dollarSign = '\$';
-      } else if (selectedLanguage.name == 'USD (\$)') {
-        dollarSign = '\$';
-      }
-    });
+    if (mounted) {
+      setState(() {
+        _selectedLang = selectedLanguage;
+        print(selectedLanguage.name);
+        if (selectedLanguage.name == 'JPY (¥)') {
+          dollarSign = '¥';
+        } else if (selectedLanguage.name == 'EUR (€)') {
+          dollarSign = '€';
+        } else if (selectedLanguage.name == 'GBP (£)') {
+          dollarSign = '£';
+        } else if (selectedLanguage.name == 'AUD (\$)') {
+          dollarSign = '\$';
+        } else if (selectedLanguage.name == 'CAD (\$)') {
+          dollarSign = '\$';
+        } else if (selectedLanguage.name == 'USD (\$)') {
+          dollarSign = '\$';
+        }
+      });
+    }
   }
 
+//  @override
+//  void dispose() {
+//    // Clean up the controller when the widget is disposed.
+//    moneyController.dispose();
+//    super.dispose();
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,12 +126,28 @@ class _MyHomePageState extends State<MyHomePage> {
               // currency type with the corresponding symbol
               style: Theme.of(context).textTheme.display1,
             ),
+//            Text(
+//              '$dollarSign $_counter',
+//              style: Theme.of(context).textTheme.display1,
+//            ),
             Text(
-              '$dollarSign $_counter',
-              style: Theme.of(context).textTheme.display1,
+              defaultValue,
+              style: Theme.of(context).textTheme.display2,
             ),
             MoneyTextFormField(
-                settings: MoneyTextFormFieldSettings(controller: moneyController)),
+              settings: MoneyTextFormFieldSettings(
+                controller: moneyController,
+//                onChanged: doSomething(moneyController.text),
+              ),
+            ),
+
+            RaisedButton (
+              child: Text('Translate'),
+              onPressed: () {
+                doSomething(moneyController.text);
+              },
+            ),
+
             new Container(
                 alignment: Alignment.center,
                 padding:
@@ -137,13 +166,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 20.0,
                     ),
                     Text('Selected : ${_selectedLang.name}'),
-
-
                   ],
                 )),
           ],
         ),
       ),
+
+
 //      floatingActionButton: FloatingActionButton(
 //        onPressed: () {
 //          Navigator.push(
@@ -157,5 +186,20 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  doSomething(String text) {
+    setState(() {
 
+      double doubleValue = double.parse(moneyController.text);
+
+      FlutterMoneyFormatter fmf = FlutterMoneyFormatter(amount: doubleValue);
+
+      print(fmf.output.nonSymbol);
+
+      String StringOfFormattedMoney = fmf.output.nonSymbol.toString();
+
+      defaultValue = StringOfFormattedMoney;
+//      text = moneyController.text;
+//      defaultValue = text;
+    });
+  }
 }
