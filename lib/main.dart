@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 
 import 'package:moneytextformfield/moneytextformfield.dart';
@@ -13,11 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Break Check',
+      title: 'Bread Converter',
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: MyHomePage(title: 'Currency Translator'),
+      home: MyHomePage(title: 'Bread Converter'),
     );
   }
 }
@@ -51,7 +50,6 @@ class Language {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   FlutterMoneyFormatter fmf;
   double doubleValue;
   String defaultValue = '0';
@@ -90,7 +88,6 @@ class _MyHomePageState extends State<MyHomePage> {
         print(selectedLanguage.name);
         if (selectedLanguage.name == 'JPY (¥)') {
           dollarSign = 'Japanese Yen ¥';
-
         } else if (selectedLanguage.name == 'EUR (€)') {
           dollarSign = 'Euro €';
         } else if (selectedLanguage.name == 'GBP (£)') {
@@ -105,13 +102,6 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
   }
-
-//  @override
-//  void dispose() {
-//    // Clean up the controller when the widget is disposed.
-//    moneyController.dispose();
-//    super.dispose();
-//  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,10 +118,6 @@ class _MyHomePageState extends State<MyHomePage> {
               // currency type with the corresponding symbol
               style: Theme.of(context).textTheme.display1,
             ),
-//            Text(
-//              '$dollarSign $_counter',
-//              style: Theme.of(context).textTheme.display1,
-//            ),
             Text(
               defaultValue,
               style: Theme.of(context).textTheme.display2,
@@ -139,17 +125,14 @@ class _MyHomePageState extends State<MyHomePage> {
             MoneyTextFormField(
               settings: MoneyTextFormFieldSettings(
                 controller: moneyController,
-//                onChanged: doSomething(moneyController.text),
               ),
             ),
-
-            RaisedButton (
+            RaisedButton(
               child: Text('Translate'),
               onPressed: () {
                 doSomething(moneyController.text);
               },
             ),
-
             new Container(
                 alignment: Alignment.center,
                 padding:
@@ -173,24 +156,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-
-
-//      floatingActionButton: FloatingActionButton(
-//        onPressed: () {
-//          Navigator.push(
-//            context,
-//            MaterialPageRoute(builder: (context) => MyNumPadPage(title: 'Add New Item',)),
-//      );
-//        },
-//        tooltip: 'Calculate',
-//        child: Icon(Icons.add),
-//      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
   doSomething(String text) {
     setState(() {
-
       doubleValue = double.parse(moneyController.text);
 
       if (dollarSign == 'Japanese Yen ¥') {
@@ -207,11 +177,9 @@ class _MyHomePageState extends State<MyHomePage> {
         doubleValue = 1 * doubleValue;
       }
 
-
       fmf = FlutterMoneyFormatter(amount: doubleValue);
 
       print(fmf.output.nonSymbol);
-
 
       String StringOfFormattedMoney = fmf.output.nonSymbol.toString();
 
