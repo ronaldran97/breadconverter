@@ -1,5 +1,4 @@
-import 'package:break_check/add_item_numpad.dart';
-import 'package:break_check/second_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
@@ -45,14 +44,16 @@ class Language {
       Language(3, 'EUR (€)'),
       Language(4, 'GBP (£)'),
       Language(5, 'AUD (\$)'),
-      Language(6, 'CAD (\$)')
+      Language(6, 'CAD (\$)'),
+      Language(7, 'MEX (\$)'),
     ];
   }
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-
+  FlutterMoneyFormatter fmf;
+  double doubleValue;
   String defaultValue = '0';
 
   String dollarSign = '\$';
@@ -88,17 +89,18 @@ class _MyHomePageState extends State<MyHomePage> {
         _selectedLang = selectedLanguage;
         print(selectedLanguage.name);
         if (selectedLanguage.name == 'JPY (¥)') {
-          dollarSign = '¥';
+          dollarSign = 'Japanese Yen ¥';
+
         } else if (selectedLanguage.name == 'EUR (€)') {
-          dollarSign = '€';
+          dollarSign = 'Euro €';
         } else if (selectedLanguage.name == 'GBP (£)') {
-          dollarSign = '£';
+          dollarSign = 'Pound £';
         } else if (selectedLanguage.name == 'AUD (\$)') {
-          dollarSign = '\$';
+          dollarSign = 'Australian \$';
         } else if (selectedLanguage.name == 'CAD (\$)') {
-          dollarSign = '\$';
+          dollarSign = 'Canadian \$';
         } else if (selectedLanguage.name == 'USD (\$)') {
-          dollarSign = '\$';
+          dollarSign = 'United States \$';
         }
       });
     }
@@ -189,11 +191,27 @@ class _MyHomePageState extends State<MyHomePage> {
   doSomething(String text) {
     setState(() {
 
-      double doubleValue = double.parse(moneyController.text);
+      doubleValue = double.parse(moneyController.text);
 
-      FlutterMoneyFormatter fmf = FlutterMoneyFormatter(amount: doubleValue);
+      if (dollarSign == 'Japanese Yen ¥') {
+        doubleValue = 108.94500 * doubleValue;
+      } else if (dollarSign == 'Euro €') {
+        doubleValue = 0.92175 * doubleValue;
+      } else if (dollarSign == 'Pound £') {
+        doubleValue = 0.80785 * doubleValue;
+      } else if (dollarSign == 'Canadian \$') {
+        doubleValue = 1.40290 * doubleValue;
+      } else if (dollarSign == 'Australian \$') {
+        doubleValue = 1.60604 * doubleValue;
+      } else if (dollarSign == 'United States \$') {
+        doubleValue = 1 * doubleValue;
+      }
+
+
+      fmf = FlutterMoneyFormatter(amount: doubleValue);
 
       print(fmf.output.nonSymbol);
+
 
       String StringOfFormattedMoney = fmf.output.nonSymbol.toString();
 
