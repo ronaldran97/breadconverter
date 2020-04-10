@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
-
 import 'package:moneytextformfield/moneytextformfield.dart';
-
 //import 'lib/second_page.dart' as route;
+
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -60,10 +60,6 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Language> _languages = Language.getMoneyLanguage();
   List<DropdownMenuItem<Language>> _dropdownMenuItems;
   Language _selectedLang;
-
-
-
-  
 
 
 
@@ -132,7 +128,10 @@ class _MyHomePageState extends State<MyHomePage> {
               settings: MoneyTextFormFieldSettings(
                 controller: moneyController,
               ),
+
             ),
+
+
             RaisedButton(
               child: Text('Translate'),
               onPressed: () {
