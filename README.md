@@ -1,2 +1,2 @@
 # BreakCheck
-Bill Splitting app
+Currency Translator
