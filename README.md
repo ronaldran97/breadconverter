@@ -1,4 +1,4 @@
-# BreakCheck
+# Bread Converter
 Bread Converter
 
 Convert your dough into any currency you want!
